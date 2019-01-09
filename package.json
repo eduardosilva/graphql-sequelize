@@ -1,0 +1,45 @@
+{
+  "name": "graphql-adventure-works",
+  "version": "1.0.0",
+  "description": "A example project using graqhl with AdventureWorks database",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "concurrently --kill-others \"tsc --watch\" \"nodemon dist\"",
+    "test": "tsc && mocha dist/**/*.spec.js",
+    "lint": "eslint src --ext ts",
+    "tsc": "tsc"
+  },
+  "author": "Eduardo Silva",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^1.4.0",
+    "body-parser": "^1.18.3",
+    "dataloader": "^1.4.0",
+    "express": "^4.16.4",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
+    "graphql-tools": "^4.0.3",
+    "lodash": "^4.17.11",
+    "nodemon": "^1.18.9",
+    "sequelize": "^4.42.0",
+    "tedious": "^3.0.1",
+    "tslint-config-airbnb": "^5.11.1"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.0.4",
+    "@types/lodash": "^4.14.119",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.18",
+    "@types/sequelize": "^4.27.33",
+    "concurrently": "^4.1.0",
+    "eslint": "^5.11.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.2.2",
+    "typescript-eslint-parser": "^21.0.2"
+  }
+}
