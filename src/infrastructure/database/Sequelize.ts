@@ -8,7 +8,7 @@ export const sequelize = new Sequelize('AdventureWorks2016CTP3', 'sa', 'sa', {
   dialect: 'mssql',
   port: 1433,
   operatorsAliases: false, // Sequelize.Op there's a problem with @types/sequelize adding Sequelize.Op as a operatorAliases
-  logging: true,
+  // logging: true,
   dialectOptions: {
     instanceName: 'SQL2016',
     encrypt: false,

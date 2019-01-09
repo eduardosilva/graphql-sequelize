@@ -1,7 +1,7 @@
 {
-  "name": "graphql-adventure-works",
+  "name": "grapqhl-sequelize",
   "version": "1.0.0",
-  "description": "A example project using graqhl with AdventureWorks database",
+  "description": "A implementation example of using Graphql and Sequilize ORM",
   "main": "index.js",
   "scripts": {
     "build": "tsc",

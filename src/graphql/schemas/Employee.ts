@@ -1,8 +1,6 @@
 import { Employee } from "../../infrastructure/database/models/Employee";
 import gql from "graphql-tag";
-import { Person } from "../../infrastructure/database/models/Person";
-import * as DataLoader from 'dataloader';
-import { Op } from "sequelize";
+import { Person, personLoader } from "../../infrastructure/database/models/Person";
 
 export const typeDefs = gql`
     extend type Query {
@@ -13,19 +11,6 @@ export const typeDefs = gql`
         name: String 
     }
 `;
-
-export const getPersonByIds = async (ids: number[]): Promise<any[]> => {
-    const result = await Person.findAll({
-        where: {
-            id: {
-                [Op.in]: ids
-            }
-        }
-    })
-    return result
-};
-
-const personLoader = new DataLoader<number, any[]>(getPersonByIds);
 
 export const resolvers = {
     Query: {

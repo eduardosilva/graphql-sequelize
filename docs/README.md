@@ -15,9 +15,6 @@ This is a example about how to start a project using Graphql, NodeJs and Sequeli
 
 ## Queries
 
-* Use Dataloader to avoid N+1 queries problems
-
-
 
 
 ## Useful links:
