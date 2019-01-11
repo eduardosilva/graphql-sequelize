@@ -14,6 +14,8 @@ This is a example about how to start a project using Graphql, NodeJs and Sequeli
 
 * Dowloading SQL Server Adventure Works database - https://www.microsoft.com/en-us/download/details.aspx?id=49502
 
+> **IMPORTANT**: In this project example I'm not using `sequelize-cli` to create my models.
+
 ## Mappings and Configurations
 
 ### Focus on Graphql schema not in your database design
