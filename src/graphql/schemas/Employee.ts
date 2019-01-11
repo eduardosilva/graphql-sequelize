@@ -2,6 +2,7 @@ import * as DataLoader from 'dataloader';
 import gql from "graphql-tag";
 import { Op } from "sequelize";
 import db, { DbContext } from "../../infrastructure/database/DbContext";
+import { PersonAttributes } from '../../infrastructure/database/models/Person';
 
 
 const personLoader = new DataLoader<number, any[]>(async (ids: number[]): Promise<any[]> => {
@@ -52,7 +53,7 @@ export const typeDefs = gql`
 export const resolvers = {
     Query: {
         employees: async (_, { id }, { db }: { db: DbContext }) => {
-            if (id){
+            if (id) {
                 return db.Employee.findAll({
                     where: {
                         id: id
