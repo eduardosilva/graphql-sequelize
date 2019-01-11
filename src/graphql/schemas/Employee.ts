@@ -15,11 +15,15 @@ const personLoader = new DataLoader<number, any[]>(async (ids: number[]): Promis
     return result
 });
 
-const departmentLoader = new DataLoader<number, any[]>(async (ids: number[]): Promise<any[]> => {
+const departmentHistoryLoader = new DataLoader<number, any[]>(async (ids: number[]): Promise<any[]> => {
     const result = await db.EmployeeDepartmentHistory.findAll({
         include: [{
             model: db.Department,
             as: 'department'
+        },
+        {
+            model: db.Shift,
+            as: 'shift'
         }],
         where: {
             employeeId: {
@@ -29,17 +33,19 @@ const departmentLoader = new DataLoader<number, any[]>(async (ids: number[]): Pr
         }
     })
 
-    return result.map(r => r.department)
+    return result
 });
 
 export const typeDefs = gql`
     extend type Query {
         employees(id: ID): [Employee]
     }
+
     type Employee { 
         id: ID!
         name: String 
         department: Department
+        shift: Shift
     }
 `;
 
@@ -63,8 +69,12 @@ export const resolvers = {
             return `${person.firstName} ${person.middleName} ${person.lastName}`
         },
         department: async ({ id }: { id: number }, _, { db }: { db: DbContext }) => {
-            const department = await departmentLoader.load(id) as any
-            return department
+            const history = await departmentHistoryLoader.load(id) as any
+            return history.department
+        },
+        shift: async ({ id }: { id: number }, _, { db }: { db: DbContext }) => {
+            const history = await departmentHistoryLoader.load(id) as any
+            return history.shift
         }
     }
 }
