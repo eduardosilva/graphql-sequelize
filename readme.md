@@ -27,3 +27,4 @@ This is a example about how to start a project using Graphql, NodeJs and Sequeli
 * [Dataloader official documentation](https://github.com/facebook/dataloader)
 * [Modularizing your GraphQL schema code](https://blog.apollographql.com/modularizing-your-graphql-schema-code-d7f71d5ed5f2)
 * [Using DataLoader to batch requests](https://medium.com/@gajus/using-dataloader-to-batch-requests-c345f4b23433)
+* [So you want to use Typescript with Sequelize?](https://vivacitylabs.com/setup-typescript-sequelize/)

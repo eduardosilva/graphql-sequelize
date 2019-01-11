@@ -2,10 +2,8 @@ import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import { schema } from './graphql/Schema'
-import { Department } from './infrastructure/database/models/Department';
-import { Employee, EmployeeDepartmentHistory } from './infrastructure/database/models/Employee';
-import { Person } from './infrastructure/database/models/Person';
-import { Shift } from './infrastructure/database/models/Shift';
+import { EmployeeInstance } from './infrastructure/database/models/Employee';
+import db from './infrastructure/database/DbContext';
 
 
 // Initialize the app
@@ -16,7 +14,8 @@ app.use('/graphql', bodyParser.json(), graphqlExpress(
   {
     schema,
     context: {
-      userName: 'Eduardo Silva'
+      userName: 'Eduardo Silva',
+      db: db
     }
   }));
 
@@ -26,8 +25,21 @@ app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 // Start the server
 app.listen(3000, () => {
   console.log('Go to http://localhost:3000/graphiql to run queries!');
+  mko()
 
-  // Employee.findAll({
-  //   include: [{ model: EmployeeDepartmentHistory, as: 'departmentHistory' }]
-  // }).then(e => console.log(JSON.stringify(e))
 });
+
+const mko = async () => {
+  db.Employee.findAll({
+    include: [{
+      model: db.Person,
+      as: 'person'
+    },
+    {
+      model: db.EmployeeDepartmentHistory,
+      as: 'departmentHistory'
+    }]
+  }).then((r: EmployeeInstance[]) => {
+    r.map(t => console.log('name: ' + t.person.firstName + 'departments: ' + t.departmentHistory.length))
+  })
+}
