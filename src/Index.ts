@@ -25,21 +25,21 @@ app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 // Start the server
 app.listen(3000, () => {
   console.log('Go to http://localhost:3000/graphiql to run queries!');
-  mko()
+  // mko()
 
 });
 
-const mko = async () => {
-  db.Employee.findAll({
-    include: [{
-      model: db.Person,
-      as: 'person'
-    },
-    {
-      model: db.EmployeeDepartmentHistory,
-      as: 'departmentHistory'
-    }]
-  }).then((r: EmployeeInstance[]) => {
-    r.map(t => console.log('name: ' + t.person.firstName + 'departments: ' + t.departmentHistory.length))
-  })
-}
+// const mko = async () => {
+//   db.Employee.findAll({
+//     include: [{
+//       model: db.Person,
+//       as: 'person'
+//     },
+//     {
+//       model: db.EmployeeDepartmentHistory,
+//       as: 'departmentHistory'
+//     }]
+//   }).then((r: EmployeeInstance[]) => {
+//     r.map(t => console.log('name: ' + t.person.firstName + 'departments: ' + t.departmentHistory.length))
+//   })
+// }

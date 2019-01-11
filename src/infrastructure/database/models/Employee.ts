@@ -1,6 +1,7 @@
 import * as Sequelize from 'sequelize'
 import { SequelizeAttributes } from './typings/SequelizeAttibutes';
 import { PersonAttributes } from './Person';
+import { DepartmentAttributes } from './Department';
 
 
 export interface EmployeeAttributes {
@@ -51,7 +52,8 @@ export interface EmployeeDepartmentHistoryAttributes {
     shiftID: number
     startDate: Date,
     endDate: Date,
-    modifiedDate: Date
+    modifiedDate: Date,
+    department?: DepartmentAttributes
 }
 
 export interface EmployeeDepartmentHistoryInstance extends Sequelize.Instance<EmployeeDepartmentHistoryAttributes>, EmployeeDepartmentHistoryAttributes {

@@ -3,7 +3,8 @@ import gql from "graphql-tag";
 import { Op } from "sequelize";
 import db, { DbContext } from "../../infrastructure/database/DbContext";
 
-const getPersonByIds = async (ids: number[]): Promise<any[]> => {
+
+const personLoader = new DataLoader<number, any[]>(async (ids: number[]): Promise<any[]> => {
     const result = await db.Person.findAll({
         where: {
             id: {
@@ -12,9 +13,24 @@ const getPersonByIds = async (ids: number[]): Promise<any[]> => {
         }
     })
     return result
-};
+});
 
-export const personLoader = new DataLoader<number, any[]>(getPersonByIds);
+const departmentLoader = new DataLoader<number, any[]>(async (ids: number[]): Promise<any[]> => {
+    const result = await db.EmployeeDepartmentHistory.findAll({
+        include: [{
+            model: db.Department,
+            as: 'department'
+        }],
+        where: {
+            employeeId: {
+                [Op.in]: ids
+            },
+            endDate: null
+        }
+    })
+
+    return result.map(r => r.department)
+});
 
 export const typeDefs = gql`
     extend type Query {
@@ -23,6 +39,7 @@ export const typeDefs = gql`
     type Employee { 
         id: ID!
         name: String 
+        department: Department
     }
 `;
 
@@ -41,10 +58,13 @@ export const resolvers = {
         }
     },
     Employee: {
-        name: async (employee) => {
-            const id = employee.id as number
+        name: async ({ id }: { id: number }) => {
             const person = await personLoader.load(id) as any
             return `${person.firstName} ${person.middleName} ${person.lastName}`
+        },
+        department: async ({ id }: { id: number }, _, { db }: { db: DbContext }) => {
+            const department = await departmentLoader.load(id) as any
+            return department
         }
     }
 }
