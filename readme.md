@@ -1,4 +1,4 @@
-# Grapqhl and Sequelize
+# Graphql and Sequelize
 
 This is a example about how to start a project using Graphql, NodeJs and Sequelize ORM. All examples were made using [AdventureWorks](https://www.microsoft.com/en-us/download/details.aspx?id=49502) database.
 
